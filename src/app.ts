@@ -1,2 +1,9 @@
-export const name: string = 'Fernando';
-console.log(name);
+import { Server } from "./presentation/server"
+
+const main = () => {
+    Server.start();
+}
+
+(async() => {
+    main();
+})();
