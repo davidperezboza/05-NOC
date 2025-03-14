@@ -1,4 +1,5 @@
 import { CronService } from "./cron/cron-service";
+import { CheckService } from "./domain/use-case/checks/check-service";
 
 export class Server {
     public static start(){
@@ -6,24 +7,7 @@ export class Server {
         CronService.createJob(
             '*/5 * * * * *',
             () => {
-                const date = new Date();
-                console.log('5 seconds', date.toString());
-            }
-        );
-
-        CronService.createJob(
-            '*/2 * * * * *',
-            () => {
-                const date = new Date();
-                console.log('2 seconds', date.toString());
-            }
-        );
-
-        CronService.createJob(
-            '*/3 * * * * *',
-            () => {
-                const date = new Date();
-                console.log('3 seconds', date.toString());
+              new CheckService().execute('http://google.com'); 
             }
         );
     }
