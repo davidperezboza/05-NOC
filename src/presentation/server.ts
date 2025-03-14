@@ -8,6 +8,7 @@ export class Server {
             '*/5 * * * * *',
             () => {
               new CheckService().execute('http://google.com'); 
+              //new CheckService().execute('http://localhost:3000/'); 
             }
         );
     }
