@@ -41,8 +41,24 @@ export class FyleSystemDataSource implements LogDatasource{
         
     };
 
-    getLog(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
-        throw new Error("Method not implemented.");
+    private getLogsFromFile = (path: string): LogEntity[] => {
+        const content = fs.readFileSync(path, 'utf-8');
+
+        return content.split('\n').map(log => LogEntity.fromJson(log));
+
+    };
+
+    async getLog(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
+        switch (severityLevel) {
+            case LogSeverityLevel.low:
+                return this.getLogsFromFile(this.allLogsPath);
+            case LogSeverityLevel.medium:
+                return this.getLogsFromFile(this.mediumLogsPath);
+            case LogSeverityLevel.high:
+                return this.getLogsFromFile(this.highLogsPath);
+            default:
+                throw new Error(`${severityLevel} not implemented`)
+        }
     };
 
 }
