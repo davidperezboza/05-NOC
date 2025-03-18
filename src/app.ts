@@ -2,7 +2,7 @@ import { envs } from "./config/plugins/envs.plugin";
 import { Server } from "./presentation/server"
 
 const main = () => {
-    //Server.start();
+    Server.start();
     //console.log(envs);
 };
 
