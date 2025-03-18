@@ -4,7 +4,7 @@ import { LogEntity, LogSeverityLevel } from "../../domain/entities/log.entity";
 
 export class FyleSystemDataSource implements LogDatasource{
     private readonly logPath = 'logs/';
-    private readonly allLogsPath = 'logs/logs-low.log';
+    private readonly allLogsPath = 'logs/logs-all.log';
     private readonly mediumLogsPath = 'logs/logs-medium.log';
     private readonly highLogsPath = 'logs/logs-high.log';
 
@@ -27,11 +27,22 @@ export class FyleSystemDataSource implements LogDatasource{
         });
     };
 
-    saveLog(log: LogEntity): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
+    async saveLog(newlog: LogEntity): Promise<void> {
+        const logAsJson = `${JSON.stringify(newlog)}\n`;
+
+        fs.appendFileSync(this.allLogsPath, logAsJson);
+
+        if(newlog.level === LogSeverityLevel.low) return;
+        if(newlog.level === LogSeverityLevel.medium){
+            fs.appendFileSync(this.mediumLogsPath, logAsJson);
+            return;
+        } 
+        fs.appendFileSync(this.highLogsPath, logAsJson);
+        
+    };
+
     getLog(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
         throw new Error("Method not implemented.");
-    }
+    };
 
 }
