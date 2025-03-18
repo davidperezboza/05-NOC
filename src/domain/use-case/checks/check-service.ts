@@ -17,18 +17,27 @@ export class CheckService implements CheckServiceUseCase {
     {};
 
     async execute(url: string): Promise<boolean> {
+        const origin = 'check-service.ts';
         try {
             const req = await fetch(url);
             if(!req.ok){
                 throw new Error(`Error on check service ${url}`);
             }
-            const log = new LogEntity(`Service ${url} working`, LogSeverityLevel.low);
+            const log = new LogEntity({
+                message: `Service ${url} working`, 
+                level: LogSeverityLevel.low, 
+                origin,
+            });
             this.logRepository.saveLog(log)
             this.succesCallback && this.succesCallback();
             return true;
         } catch (error) {
             const ErrorMessage = `${url} is not ok. ${error}`;
-            const log = new LogEntity(ErrorMessage, LogSeverityLevel.high);
+            const log = new LogEntity({
+                message: ErrorMessage, 
+                level: LogSeverityLevel.high, 
+                origin,
+            });
             this.logRepository.saveLog(log);
             this.errorCallback && this.errorCallback(ErrorMessage)
             return false;
