@@ -10,12 +10,14 @@ const fileSystemLogRepository = new LogRepositoryImpl(
 export class Server {
     public static start(){
         console.log('Server started..');
-        const url = 'http://localhost:3000/';
+        const url = 'http://google.com/';
         CronService.createJob(
             '*/5 * * * * *',
             () => {
               new CheckService(
                 fileSystemLogRepository,
+                //undefined,
+                //undefined,
                 () => console.log(`${url} is ok`),
                 (error) => console.log(error)
               ).execute(url); 
