@@ -1,7 +1,8 @@
 import { Server } from "./presentation/server"
 
 const main = () => {
-    Server.start();
+    //Server.start();
+    console.log(process.env.MAILER_EMAIL);
 }
 
 (async() => {
