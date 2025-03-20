@@ -15,7 +15,7 @@ export class Server {
         const url = 'http://google.com/';
 
         //Mandar email
-        const emailService = new EmailService()
+        const emailService = new EmailService(fileSystemLogRepository);
         emailService.sendEamilWithFileSytemLogs(envs.MAILER_SEND_EMAIL);
         //emailService.sendEmail({
         //  to: envs.MAILER_SEND_EMAIL,
