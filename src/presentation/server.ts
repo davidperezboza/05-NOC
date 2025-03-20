@@ -4,10 +4,13 @@ import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository
 import { FyleSystemDataSource } from "../infrastructure/datasources/filye-system.datasource";
 import { envs } from "../config/plugins/envs.plugin";
 import { EmailService } from "./email/email.service";
+import { SendEmailLogs } from "../domain/use-case/email/send-email-logs";
 
 const fileSystemLogRepository = new LogRepositoryImpl(
   new FyleSystemDataSource(),
 );
+
+const emailService = new EmailService();
 
 export class Server {
     public static start(){
@@ -15,8 +18,8 @@ export class Server {
         const url = 'http://google.com/';
 
         //Mandar email
-        const emailService = new EmailService(fileSystemLogRepository);
-        emailService.sendEamilWithFileSytemLogs(envs.MAILER_SEND_EMAIL);
+        //new SendEmailLogs(emailService, fileSystemLogRepository).execute(envs.MAILER_SEND_EMAIL)
+        //emailService.sendEamilWithFileSytemLogs(envs.MAILER_SEND_EMAIL);
         //emailService.sendEmail({
         //  to: envs.MAILER_SEND_EMAIL,
         //  subject: 'Logs de sistema',
