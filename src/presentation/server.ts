@@ -1,17 +1,20 @@
 import { CronService } from "./cron/cron-service";
-import { CheckService } from "../domain/use-case/checks/check-service";
 import { LogRepositoryImpl } from "../infrastructure/repositories/log.repository.impl";
 import { FyleSystemDataSource } from "../infrastructure/datasources/filye-system.datasource";
-import { envs } from "../config/plugins/envs.plugin";
 import { EmailService } from "./email/email.service";
-import { SendEmailLogs } from "../domain/use-case/email/send-email-logs";
 import { MongoLogDataSource } from "../infrastructure/datasources/mongo-log.datasource";
-import { LogSeverityLevel } from "../domain/entities/log.entity";
 import { PostgresLogDataSource } from "../infrastructure/datasources/postgres-log.datasource";
+import { CheckServiceMultiple } from "../domain/use-case/checks/check-service-multiple";
 
-const logRepository = new LogRepositoryImpl(
-  //new FyleSystemDataSource(),
-  //new MongoLogDataSource(),
+const fslogRepository = new LogRepositoryImpl(
+  new FyleSystemDataSource(),
+);
+
+const mongoLogRepository = new LogRepositoryImpl(
+  new MongoLogDataSource(),
+);
+
+const postgresLogRepository = new LogRepositoryImpl(
   new PostgresLogDataSource(),
 );
 
@@ -39,8 +42,8 @@ export class Server {
         CronService.createJob(
             '*/5 * * * * *',
             () => {
-              new CheckService(
-                logRepository,
+              new CheckServiceMultiple(
+                [fslogRepository, mongoLogRepository, postgresLogRepository],
                 //undefined,
                 //undefined,
                 () => console.log(`${url} is ok`),
