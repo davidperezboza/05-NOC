@@ -15,7 +15,7 @@ const emailService = new EmailService();
 export class Server {
     public static start(){
         console.log('Server started..');
-        const url = 'http://google.com/';
+        //const url = 'http://google.com/';
 
         //Mandar email
         //new SendEmailLogs(emailService, fileSystemLogRepository).execute(envs.MAILER_SEND_EMAIL)
