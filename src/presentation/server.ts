@@ -5,17 +5,20 @@ import { FyleSystemDataSource } from "../infrastructure/datasources/filye-system
 import { envs } from "../config/plugins/envs.plugin";
 import { EmailService } from "./email/email.service";
 import { SendEmailLogs } from "../domain/use-case/email/send-email-logs";
+import { MongoLogDataSource } from "../infrastructure/datasources/mongo-log.datasource";
+import { LogSeverityLevel } from "../domain/entities/log.entity";
 
-const fileSystemLogRepository = new LogRepositoryImpl(
+const logRepository = new LogRepositoryImpl(
   new FyleSystemDataSource(),
+  //new MongoLogDataSource(),
 );
 
 const emailService = new EmailService();
 
 export class Server {
-    public static start(){
+    public static async start(){
         console.log('Server started..');
-        //const url = 'http://google.com/';
+        const url = 'http://googlehjshdsvbhj.com/';
 
         //Mandar email
         //new SendEmailLogs(emailService, fileSystemLogRepository).execute(envs.MAILER_SEND_EMAIL)
@@ -29,11 +32,12 @@ export class Server {
         //    <p>Ver logs adjuntos</p>
         //  `,
         //});
+        
         //CronService.createJob(
         //    '*/5 * * * * *',
         //    () => {
         //      new CheckService(
-        //        fileSystemLogRepository,
+        //        logRepository,
         //        //undefined,
         //        //undefined,
         //        () => console.log(`${url} is ok`),
