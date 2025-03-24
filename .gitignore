@@ -25,3 +25,4 @@ coverage
 outputs
 salidas
 .env
+mongo
