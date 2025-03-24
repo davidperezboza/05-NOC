@@ -32,8 +32,8 @@ export class Server {
         //    <p>Ver logs adjuntos</p>
         //  `,
         //});
-        const logs = await logRepository.getLog(LogSeverityLevel.low)
-        console.log(logs);
+        //const logs = await logRepository.getLog(LogSeverityLevel.low)
+        //console.log(logs);
         //CronService.createJob(
         //    '*/5 * * * * *',
         //    () => {
