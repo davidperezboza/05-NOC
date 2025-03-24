@@ -43,7 +43,7 @@ export class FyleSystemDataSource implements LogDatasource{
 
     private getLogsFromFile = (path: string): LogEntity[] => {
         const content = fs.readFileSync(path, 'utf-8');
-
+        if(content === '') return [];
         return content.split('\n').map(log => LogEntity.fromJson(log));
 
     };
