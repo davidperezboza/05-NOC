@@ -19,4 +19,4 @@ const logSechema = new mongoose.Schema({
     },
 });
 
-export const Log = mongoose.model('Log', logSechema);
+export const LogModel = mongoose.model('Log', logSechema);
