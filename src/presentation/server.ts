@@ -39,18 +39,18 @@ export class Server {
         //});
         //const logs = await logRepository.getLog(LogSeverityLevel.low)
         //console.log(logs);
-        CronService.createJob(
-            '*/5 * * * * *',
-            () => {
-              new CheckServiceMultiple(
-                [fslogRepository, mongoLogRepository, postgresLogRepository],
-                //undefined,
-                //undefined,
-                () => console.log(`${url} is ok`),
-                (error) => console.log(error)
-              ).execute(url); 
-              //new CheckService().execute('http://localhost:3000/'); 
-            }
-        );
+        //CronService.createJob(
+        //    '*/5 * * * * *',
+        //    () => {
+        //      new CheckServiceMultiple(
+        //        [fslogRepository, mongoLogRepository, postgresLogRepository],
+        //        //undefined,
+        //        //undefined,
+        //        () => console.log(`${url} is ok`),
+        //        (error) => console.log(error)
+        //      ).execute(url); 
+        //      //new CheckService().execute('http://localhost:3000/'); 
+        //    }
+        //);
     }
 };
