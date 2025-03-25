@@ -25,5 +25,8 @@ coverage
 outputs
 salidas
 .env
+.env.test
 /mongo
 /postgres
+/mongo-test
+/postgres-test
